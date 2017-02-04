@@ -1,0 +1,17 @@
+<html>
+	<head>
+		<title>ModBuddy Analyze Testing Page</title>
+	</head>
+	<body>
+		<form action='analyze' method='POST'>
+			Comment Text:<br/><br/>
+			<input type='text' name='comment-text'>
+			<input type='hidden' name='request-type' value='web'>
+			<input type='submit' name='Submit'>
+		</form>
+		{% if results %}
+		<br/><br/><p align=center><h1>Analysis Results:</h1><br/><br/>{{ results }}<br/></p>
+		{% endif %}
+	</body>
+</html>
+
