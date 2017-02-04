@@ -1,9 +1,9 @@
-from flask import Flask, session, redirect, url_for, escape, request, render_template
+from flask import Flask, session, abort, redirect, url_for, escape, request, render_template
 import indicoio
 from indicoio.custom import Collection
 
 #API Setup
-keyfile = file.open('assets/indico-api-key.txt')
+keyfile = open('assets/indico-api-key.txt')
 indicoio.config.api_key = keyfile.read()
 keyfile.close()
 
@@ -35,7 +35,11 @@ def analyze():
 @app.route("/train", methods=['GET','POST'])
 def train():
     if request.method == 'POST':
-        return render_template('train.html',results=str(request.form))
+        if 'harassing-comments' in request.form and 'non-harassing-comments' in request.form:
+            trainComments( request.form['non-harassing-comments'], request.form['harassing-comments'])
+            return render_template('train.html',results="Successfully completed training.")
+        else:
+            abort(400)
     else:
         return render_template('train.html')
 
@@ -58,10 +62,13 @@ def analyzeText( textToAnalyze ):
     return str(resultDict)
 
 def trainComments( goodComments, badComments ):
-    for comment in goodComments:
+    goodCommentArr = string.split(goodComments.lower().replace('\r',''),'\n')
+    badCommentArr = string.split(badComments.lower().replace('\r',''),'\n')
+
+    for comment in goodCommentArr:
         hCollection.add_data([[comment, "false"]])
 
-    for comment in badComments:
+    for comment in badCommentArr:
         hCollection.add_data([[comment, "true"]])
 
     hCollection.train()
