@@ -1,5 +1,6 @@
 from flask import Flask, session, abort, redirect, url_for, escape, request, render_template
 import indicoio
+import json
 from indicoio.custom import Collection
 
 #API Setup
@@ -25,6 +26,12 @@ def analyze():
         if 'request-type' in request.form:
             if request.form['request-type'] == 'web':
                 return render_template('analyze.html',results=analyzeText(request.form['comment-text']))
+            else if request.form['request-type'] == 'array':
+                commentArr = json.loads(request.form['comment-text'])
+                outputArr = []
+                for idx in range(len(commentArr)):
+                    outputArr.append(analyzeText(request.form['comment-text']))
+                return json.dumps(outputArr) 
             else:
                 return analyzeText(request.form['comment-text'])
         else:
@@ -59,7 +66,7 @@ def analyzeText( textToAnalyze ):
     resultDict['sentiment'] = indicoio.sentiment(textToAnalyze)
     resultDict['harassing-comment'] = hCollection.predict(textToAnalyze)
     resultDict['contains-bad-words'] = containsBadWords(textToAnalyze)
-    return str(resultDict)
+    return json.dumps(resultDict)
 
 def trainComments( goodComments, badComments ):
     goodCommentArr = goodComments.lower().replace('\r','').split('\n')
@@ -78,5 +85,5 @@ def trainComments( goodComments, badComments ):
 
 if __name__ == "__main__":
             badWordList =  [line.strip().lower() for line in open('assets/bad_words.txt')]
-            app.run()
+            app.run('0.0.0.0')
 
