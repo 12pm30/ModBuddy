@@ -17,6 +17,8 @@
   },
   
   "permissions": [
+	"tabs",
+	"<all_urls>",
     "activeTab",
     "background",
     "bookmarks",
