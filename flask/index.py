@@ -62,8 +62,8 @@ def analyzeText( textToAnalyze ):
     return str(resultDict)
 
 def trainComments( goodComments, badComments ):
-    goodCommentArr = string.split(goodComments.lower().replace('\r',''),'\n')
-    badCommentArr = string.split(badComments.lower().replace('\r',''),'\n')
+    goodCommentArr = goodComments.lower().replace('\r','').split('\n')
+    badCommentArr = badComments.lower().replace('\r','').split('\n')
 
     for comment in goodCommentArr:
         hCollection.add_data([[comment, "false"]])
