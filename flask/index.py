@@ -1,9 +1,15 @@
 from flask import Flask, session, redirect, url_for, escape, request, render_template
 import indicoio
-indicoio.config.api_key = 'api-key-goes-here'
+from indicoio.custom import Collection
+
+#API Setup
+keyfile = file.open('assets/indico-api-key.txt')
+indicoio.config.api_key = keyfile.read()
+keyfile.close()
 
 #Global variables
 badWordList = []
+hCollection = Collection("HarrassmentCollection")
 
 #Flask crap
 app = Flask(__name__)
@@ -26,6 +32,12 @@ def analyze():
     else: 
         return render_template('analyze.html')
 
+@app.route("/train", methods=['GET','POST'])
+def train():
+    if request.method == 'POST':
+        return render_template('train.html',results=str(request.form))
+    else:
+        return render_template('train.html')
 
 #My Functions
 
@@ -39,10 +51,21 @@ def containsBadWords( text ):
 
 def analyzeText( textToAnalyze ):
     resultDict = {}
-
+    resultDict['request-text'] = textToAnalyze
     resultDict['sentiment'] = indicoio.sentiment(textToAnalyze)
-    resultDict['containsBadWords'] = containsBadWords(textToAnalyze);
+    resultDict['harassing-comment'] = hCollection.predict(textToAnalyze)
+    resultDict['contains-bad-words'] = containsBadWords(textToAnalyze)
     return str(resultDict)
+
+def trainComments( goodComments, badComments ):
+    for comment in goodComments:
+        hCollection.add_data([[comment, "false"]])
+
+    for comment in badComments:
+        hCollection.add_data([[comment, "true"]])
+
+    hCollection.train()
+    hCollection.wait()
 
 #main
 
