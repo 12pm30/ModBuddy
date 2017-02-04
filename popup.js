@@ -1,7 +1,12 @@
 chrome.runtime.onMessage.addListener(function(request, sender){
-	if (request.action == "getSource") {
-		message.innerText = request.source;
+	var userTextArray = request.userTextArray;
+	var userTextString = "";
+	for (var i = 0; i < userTextArray.length; i++)
+	{
+		userTextString += userTextArray[i];
 	}
+	
+	message.innerText = userTextString;
 });
 
 function onWindowLoad() {
