@@ -1,5 +1,6 @@
 function getUserText(document_root) {
-	var pArray = document.querySelectorAll('div.md > p');
+    // Gets names of threads and comments
+	var pArray = document.querySelectorAll('a.title.may-blank.loggedin, div.md > p');
 	var textArray = [];
 	for (var i = 0; i < pArray.length; i++)
 	{
