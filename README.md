@@ -1,4 +1,4 @@
-# ModBuddy Anti-Harassment Analysis API and Browser Extension
+# ModBuddy Anti-Harassment RESTful API
 
 ![ModBuddy Picture](https://github.com/jeremyroy/ModBuddy/blob/python-flask-server/cube.png)
 
