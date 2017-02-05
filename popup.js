@@ -1,15 +1,23 @@
 console.log("popup.js");
 function popupMessageHandler(request, sender)
 {
+	var URL = '';
+	chrome.tabs.query({'active': true, 'lastFocusedWindow': true},
+   function(tabs){
+      URL = tabs[0].url.toString();
+   });
+
+	console.log(URL);
     if (request.type === "to_popup"){
         var arrayFlaggedPosts = request.arrayFlaggedPosts;
         var arrayPostStatistics = request.arrayPostStatistics;
         var arrayRawPosts = request.arrayRawPosts;
         for (var i = 0; i < arrayRawPosts.length; i++){
             if (arrayFlaggedPosts[i]){
-                var html_text = "<OPTION id=" + i + ">";
-                html_text += arrayRawPosts[i].substring(0, 20);
-                html_text += "</OPTION>";
+                var html_text = "<OPTION id=" + i + "><a href=" + URL + "/#" + i + ">";
+                html_text += arrayRawPosts[i].substring(0, 35);
+                html_text += "..."
+				html_text += "</a></OPTION>";
                 html_text += "<option disabled=\"disabled\">----------------</option>";
                 var comment_section = document.querySelector('#comments');
                 comment_section.insertAdjacentHTML('beforeend', html_text);
