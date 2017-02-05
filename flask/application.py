@@ -25,12 +25,13 @@ def analyze():
     if request.method == 'POST':
         if 'request-type' in request.form:
             if request.form['request-type'] == 'web':
-                return render_template('analyze.html',results=analyzeText(request.form['comment-text']))
-            else if request.form['request-type'] == 'array':
+                return render_template('analyze.html',results=analyzeText(request.form['comment-text']), commentText=request.form['comment-text'])
+            elif request.form['request-type'] == 'array':
                 commentArr = json.loads(request.form['comment-text'])
+                print str(commentArr)
                 outputArr = []
                 for idx in range(len(commentArr)):
-                    outputArr.append(analyzeText(request.form['comment-text']))
+                    outputArr.append(analyzeText(commentArr[idx]))
                 return json.dumps(outputArr) 
             else:
                 return analyzeText(request.form['comment-text'])
@@ -62,7 +63,6 @@ def containsBadWords( text ):
 
 def analyzeText( textToAnalyze ):
     resultDict = {}
-    resultDict['request-text'] = textToAnalyze
     resultDict['sentiment'] = indicoio.sentiment(textToAnalyze)
     resultDict['harassing-comment'] = hCollection.predict(textToAnalyze)
     resultDict['contains-bad-words'] = containsBadWords(textToAnalyze)
