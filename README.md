@@ -21,6 +21,9 @@ After installing prerequisites, you must create a file called `indico-api-key.tx
 
 To demonstrate the functionality without an API client, a simple web form was created. To train the model, navigate to /train and enter comments (one per line) as "non harassing" or "harassing" and click `Submit Training Form`. Then, navigate to /analyze (root will redirect you there), and enter a comment to be analyzed. The response will show the JSON objects returned by the API.
 
+[Example of an acceptable comment](https://github.com/jeremyroy/ModBuddy/blob/python-flask-server/images/cats_cute.png)
+[Example of a harassing comment](https://github.com/jeremyroy/ModBuddy/blob/python-flask-server/images/smell_monkey.png)
+
 ### API Reference
 
 [/analyze](https://github.com/jeremyroy/ModBuddy/blob/python-flask-server/flask/docs/analyze.md)
