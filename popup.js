@@ -13,7 +13,7 @@ var tabid;
 
 function scroll_to_id(event){
   var element_id = event.target.id;
-  console.log("scroll_to_id");
+  console.log("scroll_to_id: " + element_id);
 
   console.log(tabid);
 
@@ -36,12 +36,13 @@ function popupMessageHandler(request, sender)
         for (var i = 0; i < arrayRawPosts.length; i++){
             if (arrayFlaggedPosts[i]){
                 var html_text = "<input type=\"checkbox\" name=\"flag_group[]\" id=cb\"" + i + "\" />";
-                //var html_text = "<OPTION id=" + i;
-                //html_text += " value='" + tabUrl + "#" + i + "'>";
+                //var html_text = "<OPTION id=" + i + ">";
                 //html_text += "<a style=\"color:black;text-decoration: none\" href=\"" + tabUrl + "/#" + i + "\">";
-                html_text += "<a id=\"" + i + "\" style=\"color:black;text-decoration: none\" >";
+                html_text += "<a name=my_check id=\"" + i + "\" style=\"color:black;text-decoration: none\" >";
+                // html_text += "<font size=\"3\">";
                 html_text += arrayRawPosts[i].substring(0, 35);
                 html_text += "...";
+                // html_text += "</font>";
                 html_text += "</a>";
                 html_text += "<br />";
 				        //html_text += "</OPTION>";
