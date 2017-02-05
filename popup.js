@@ -1,20 +1,57 @@
 console.log("popup.js");
+
+var tabid;
+
+// function doInCurrentTab(tabCallback) {
+//     chrome.tabs.query({
+//         lastFocusedWindow: true, 
+//         active: true 
+//     }, function (tabArray) { 
+//         tabCallback(tabArray[0]); 
+//     });
+// }
+
+function scroll_to_id(event){
+  var element_id = event.target.id;
+  console.log("scroll_to_id");
+
+  console.log(tabid);
+
+            console.log("sending scroll command");
+            chrome.tabs.sendMessage(tabid,{
+                type: "scroll",
+                element_id: element_id
+            })
+}
+
 function popupMessageHandler(request, sender)
 {
     if (request.type === "to_popup"){
         var arrayFlaggedPosts = request.arrayFlaggedPosts;
         var arrayPostStatistics = request.arrayPostStatistics;
         var arrayRawPosts = request.arrayRawPosts;
+        var tabUrl = request.tabUrl;
+        tabid = request.tabid;
+        console.log(tabid)
         for (var i = 0; i < arrayRawPosts.length; i++){
             if (arrayFlaggedPosts[i]){
-                var html_text = "<OPTION id=" + i + ">";
-                html_text += arrayRawPosts[i].substring(0, 20);
-                html_text += "</OPTION>";
-                html_text += "<option disabled=\"disabled\">----------------</option>";
-                var comment_section = document.querySelector('#comments');
-                comment_section.insertAdjacentHTML('beforeend', html_text);
+                var html_text = "<input type=\"checkbox\" name=\"flag_group[]\" id=cb\"" + i + "\" />";
+                //var html_text = "<OPTION id=" + i;
+                //html_text += " value='" + tabUrl + "#" + i + "'>";
+                //html_text += "<a style=\"color:black;text-decoration: none\" href=\"" + tabUrl + "/#" + i + "\">";
+                html_text += "<a id=\"" + i + "\" style=\"color:black;text-decoration: none\" >";
+                html_text += arrayRawPosts[i].substring(0, 35);
+                html_text += "...";
+                html_text += "</a>";
+                html_text += "<br />";
+				        //html_text += "</OPTION>";
+                //html_text += "<option disabled=\"disabled\">----------------</option>";;
+                console.log(html_text);
+                document.getElementById('comments').innerHTML += html_text;
             }
         }
+        document.getElementById("comments").addEventListener("click", scroll_to_id);
+
     }
 }
 

@@ -18,16 +18,24 @@ function onWindowLoad(){
 }
 
 function message_callback(request, sender) {
-    var arrayFlaggedPosts = request.arrayFlaggedPosts;
-	var arrayPostStatistics = request.arrayPostStatistics;
+	if (request.type === "highlight"){
+		var arrayFlaggedPosts = request.arrayFlaggedPosts;
+		var arrayPostStatistics = request.arrayPostStatistics;
 
-	var pArray = document.querySelectorAll('a.title.may-blank.loggedin, div.md > p');
-	for (var i = 0; i < pArray.length; i++)
-	{
-		if (arrayFlaggedPosts[i]){
-			// console.log(pArray[i]);
-			pArray[i].setAttribute("style","background-color:yellow");
+		var pArray = document.querySelectorAll('a.title.may-blank.loggedin, div.md > p');
+		for (var i = 0; i < pArray.length; i++)
+		{
+			if (arrayFlaggedPosts[i]){
+				// console.log(pArray[i]);
+				pArray[i].setAttribute("style","background-color:yellow");
+			}
 		}
+	}
+	else if (request.type === "scroll"){
+		console.log("In scroll handler");
+		var element_id = request.element_id;
+		var y = document.getElementById(element_id).offsetTop;
+		window.scroll(0, y);
 	}
 }
 

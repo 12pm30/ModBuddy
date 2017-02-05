@@ -2,6 +2,8 @@ var arrayFlaggedPosts = [];
 var arrayPostStatistics = [];
 var numUnwantedPosts = 0;
 var arrayRawPosts = [];
+var tabUrl = "";
+var tabid = 0;
 
 // Perform callback on the active tab.
 function doInCurrentTab(tabCallback) {
@@ -50,7 +52,10 @@ function flask_server_cb(){
     doInCurrentTab( function(tab){
         if (tab){
             console.log("send message has tab");
+            tabUrl = tab.url;
+            tabid = tab.id;
             chrome.tabs.sendMessage(tab.id,{
+                type: "highlight",
                 arrayFlaggedPosts: arrayFlaggedPosts,
                 arrayPostStatistics: arrayPostStatistics
             })
@@ -62,7 +67,9 @@ function flask_server_cb(){
             type: "to_popup",
             arrayFlaggedPosts: arrayFlaggedPosts,
             arrayPostStatistics: arrayPostStatistics,
-            arrayRawPosts: arrayRawPosts
+            arrayRawPosts: arrayRawPosts,
+            tabUrl: tabUrl,
+            tabid: tabid
     })
 }
 
@@ -88,7 +95,9 @@ function message_callback(request, sender) {
                 type: "to_popup",
                 arrayFlaggedPosts: arrayFlaggedPosts,
                 arrayPostStatistics: arrayPostStatistics,
-                arrayRawPosts: arrayRawPosts
+                arrayRawPosts: arrayRawPosts,
+                tabUrl: tabUrl,
+                tabid: tabid
         })
     }
 }
@@ -98,6 +107,8 @@ function clear_globals(){
     arrayPostStatistics = [];
     numUnwantedPosts = 0;
     arrayRawPosts = [];
+    tabUrl = "";
+    tabid = 0;
 }
 
 /** Main, functionless script */
