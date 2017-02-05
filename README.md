@@ -1,6 +1,6 @@
 # ModBuddy Anti-Harassment RESTful API
 
-![ModBuddy Picture](https://github.com/jeremyroy/ModBuddy/blob/python-flask-server/cube.png)
+![ModBuddy Picture](https://github.com/jeremyroy/ModBuddy/blob/master/cube.png)
 
 ModBuddy is composed of two parts- a RESTful API that performs analysis on text, and a chrome extension that submits comments from Reddit for analysis.
 
@@ -23,9 +23,9 @@ To demonstrate the functionality without an API client, a simple web form was cr
 
 ### API Reference
 
-[/analyze](https://github.com/jeremyroy/ModBuddy/blob/python-flask-server/flask/docs/analyze.md)
+[/analyze](https://github.com/jeremyroy/ModBuddy/blob/master/flask/docs/analyze.md)
 
-[/train](https://github.com/jeremyroy/ModBuddy/blob/python-flask-server/flask/docs/train.md)
+[/train](https://github.com/jeremyroy/ModBuddy/blob/master/flask/docs/train.md)
 
 ### Deploying on AWS Elastic Beanstalk
 
