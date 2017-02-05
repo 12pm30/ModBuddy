@@ -56,17 +56,32 @@ function popupMessageHandler(request, sender)
     }
 }
 
-function sendContentRequest()
+function select_all_cb(event){
+    var element = event.target;
+    var strUser = element.options[element.selectedIndex].value;
+    var comment_array = document.querySelectorAll('input');
+    for (var i = 0; i < comment_array.length; i++){
+        if (strUser === "Select All"){
+            comment_array[i].checked=true
+        }
+        else if (strUser === "Select None"){
+            comment_array[i].checked=false
+        }
+    }
+}
+
+function onWindowLoad()
 {
+    chrome.runtime.onMessage.addListener(popupMessageHandler);
+    document.getElementById("All").addEventListener("change", select_all_cb);
     console.log("sending from_popup message");
     chrome.runtime.sendMessage({
                 type: "from_popup"
         })
 }
 
-chrome.runtime.onMessage.addListener(popupMessageHandler);
 
-window.onload = sendContentRequest;
+window.onload = onWindowLoad;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //window.alert("Hello world!");
