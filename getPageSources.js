@@ -14,6 +14,26 @@ function onWindowLoad(){
         userTextArray: getUserText(document)
     });
 }
+
+function message_callback(request, sender) {
+    var arrayFlaggedPosts = request.arrayFlaggedPosts;
+	var arrayPostStatistics = request.arrayPostStatistics;
+	
+	console.log("in message_callback");
+	console.log(arrayFlaggedPosts);
+	console.log(arrayPostStatistics);
+
+	var pArray = document.querySelectorAll('a.title.may-blank.loggedin, div.md > p');
+	for (var i = 0; i < pArray.length; i++)
+	{
+		if (arrayFlaggedPosts[i]){
+			console.log(pArray[i]);
+			pArray[i].setAttribute("style","background-color:yellow");
+		}
+	}
+}
+
+chrome.runtime.onMessage.addListener(message_callback);
  
 // pass the function you want to call at 'window.onload', in the function defined above
 window.onload = onWindowLoad;

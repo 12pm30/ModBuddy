@@ -24,6 +24,7 @@
   ],
   
   "permissions": [
+    "http://lowcost-env.fcu9igck3m.us-east-1.elasticbeanstalk.com/",
     "activeTab", //Need
     "background",
     "bookmarks",
