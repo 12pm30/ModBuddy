@@ -8,6 +8,14 @@ ModBuddy uses indico.io APIs to run sentiment analysis and a custom anti-harassm
 
 The chrome extension makes POST requests to /analyze, and based on the response will highlight comments to indicate a potentially harassing or vulgar comment to the moderator.
 
+## How to use the ModBuddy Chrome Extension
+
+- Go to `chrome:://extensions`, enable developer mode.
+- Click `Load unpacked extension`
+- Navigate to and select the ModBuddy root directory
+
+[Here's an example of how harassing comment highlighting works](https://github.com/jeremyroy/ModBuddy/blob/python-flask-server/images/example_reddit.png)
+
 ## How to use the ModBuddy API
 
 The ModBuddy server is built on the flask framework. You must have a valid installation of Python 2.7 and install the following packages using pip
@@ -22,6 +30,7 @@ After installing prerequisites, you must create a file called `indico-api-key.tx
 To demonstrate the functionality without an API client, a simple web form was created. To train the model, navigate to /train and enter comments (one per line) as "non harassing" or "harassing" and click `Submit Training Form`. Then, navigate to /analyze (root will redirect you there), and enter a comment to be analyzed. The response will show the JSON objects returned by the API.
 
 [Example of an acceptable comment](https://github.com/jeremyroy/ModBuddy/blob/python-flask-server/images/cats_cute.png)
+
 [Example of a harassing comment](https://github.com/jeremyroy/ModBuddy/blob/python-flask-server/images/smell_monkey.png)
 
 ### API Reference
