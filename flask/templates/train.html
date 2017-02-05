@@ -1,0 +1,23 @@
+<html>
+	<head>
+		<title>ModBuddy Analyze Testing Page</title>
+		<link href="https://fonts.googleapis.com/css?family=Coda|Source+Sans+Pro" rel="stylesheet">
+		<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+	</head>
+	<body>
+		<h1>ModBuddy Comment Analysis Api Training Page</h1>
+		<h3><br/>Non Harassing Comments:<br/></h3>
+		<textarea rows=5 cols=80 name='non-harassing-comments' form='trainform'></textarea>
+		
+		<h3><br/>Harassing Comments:<br/></h3>
+		<textarea rows=5 cols=80 name='harassing-comments' form='trainform'></textarea><br/><br />
+		<form id='trainform' action='train' method='POST'>
+			<input type='hidden' name='request-type' value='web'>
+			<input type='submit' name='Submit' value='Submit Training Form'>
+		</form><br/>
+		{% if results %}
+		<br/><p align=center><h1>Training Results:</h1><br/><br/>{{ results }}<br/></p>
+		{% endif %}
+	</body>
+</html>
+
