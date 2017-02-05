@@ -1,14 +1,36 @@
-chrome.runtime.onMessage.addListener(function(request, sender){
-	var userTextArray = request.userTextArray;
-	var userTextString = "";
-	for (var i = 0; i < userTextArray.length; i++)
-	{
-		userTextString += userTextArray[i];
-	}
-	
-	message.innerText = userTextString;
-});
+console.log("popup.js");
+function popupMessageHandler(request, sender)
+{
+    if (request.type === "to_popup"){
+        var arrayFlaggedPosts = request.arrayFlaggedPosts;
+        var arrayPostStatistics = request.arrayPostStatistics;
+        var arrayRawPosts = request.arrayRawPosts;
+        for (var i = 0; i < arrayRawPosts.length; i++){
+            if (arrayFlaggedPosts[i]){
+                var html_text = "<OPTION id=" + i + ">";
+                html_text += arrayRawPosts[i].substring(0, 20);
+                html_text += "</OPTION>";
+                html_text += "<option disabled=\"disabled\">----------------</option>";
+                var comment_section = document.querySelector('#comments');
+                comment_section.insertAdjacentHTML('beforeend', html_text);
+            }
+        }
+    }
+}
 
+function sendContentRequest()
+{
+    console.log("sending from_popup message");
+    chrome.runtime.sendMessage({
+                type: "from_popup"
+        })
+}
+
+chrome.runtime.onMessage.addListener(popupMessageHandler);
+
+window.onload = sendContentRequest;
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
 //window.alert("Hello world!");
 /*
 	Dropdown with Multiple checkbox select with jQuery - May 27, 2013

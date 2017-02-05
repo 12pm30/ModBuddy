@@ -11,6 +11,7 @@ function getUserText(document_root) {
 
 function onWindowLoad(){
     chrome.runtime.sendMessage({
+		type: "raw_posts",
         userTextArray: getUserText(document)
     });
 }
