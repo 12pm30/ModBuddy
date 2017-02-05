@@ -9,7 +9,6 @@ chrome.runtime.onMessage.addListener(function(request, sender){
 	message.innerText = userTextString;
 });
 
-
 //window.alert("Hello world!");
 /*
 	Dropdown with Multiple checkbox select with jQuery - May 27, 2013

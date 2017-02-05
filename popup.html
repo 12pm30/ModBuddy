@@ -8,7 +8,7 @@
   <head>
     <title>Getting Started Extension's Popup</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-
+	<script>$('select option:even').css({'background-color': 'red'})</script>
 <script src="popup.js"></script>
   </head>
 
@@ -23,34 +23,35 @@
       <p class="multiSel"></p>  
     </a>
     </dt>
-  
+	<p>Welcome to ModBuddy Anti-Harassment!</p>
     <dd>
+
         <select style="margin-top:10px; margin-left: 52px;" name="Check" id="All" size="1">
           <option></option>
           <option>Select All</option>
           <option>Select None</option>
         </select>
         <br><br><br>
-        <div class="mutliSelect">
-            <table style="width:100%;border:1px light grey;border-collapse: collapse;">
-                <tr>
-                    <input type="checkbox" value="Apple" />Apple</tr>
-                <tr>
-                    <input type="checkbox" value="Blackberry" />Blackberry</tr>
-                <tr>
-                    <input type="checkbox" value="HTC" />HTC</tr>
-                <tr>
-                    <input type="checkbox" value="Sony Ericson" />Sony Ericson</tr>
-                <tr>
-                    <input type="checkbox" value="Motorola" />Motorola</tr>
-                <tr>
-                    <input type="checkbox" value="Nokia" />Nokia</tr>
-            </table>
-        </div>
+		<p>Choose the comments below!</p>
+		<SELECT name="comments" style="margin-left: 5px; width: 220px" multiple>
+			<OPTION class="mar">Explorer 5.5</OPTION>
+			<option disabled="disabled">----------------</option>
+			<OPTION class="white">Explorer 6.0</OPTION>
+			<option disabled="disabled">----------------</option>
+			<OPTION class="mar">Netscape 4.7</OPTION>
+			<option disabled="disabled">----------------</option>
+			<OPTION class="white">Netscape 6.0</OPTION>
+			<option disabled="disabled">----------------</option>
+			<OPTION class="mar">WebTV</OPTION>
+			<option disabled="disabled">----------------</option>
+			<OPTION class="white">Lynx</OPTION>
+			<option disabled="disabled">----------------</option>
+			<OPTION class="mar">Other</OPTION>
+		</SELECT>
     </dd>
+	<br>
   <button >Delete</button>
   <button >Unflag</button>
-  <p id=pizza>Hi</p>
 </dl>
 </div>
   </body>
