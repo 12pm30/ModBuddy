@@ -15,10 +15,16 @@
     "default_popup": "popup.html",
     "default_title": "Mod Buddy"
   },
+
+  "content_scripts": [
+    {
+      "matches": ["https://www.reddit.com/r/*"],
+      "js": ["getPageSources.js"]
+    }
+  ],
   
   "permissions": [
-	"tabs",
-	"https://www.reddit.com/r/",
+
     "activeTab",
     "background",
     "bookmarks",
@@ -33,7 +39,7 @@
     "management",
     "notifications",
     "pageCapture",
-    "tabs",
+    "tabs",  //Need
     "topSites",
     "webNavigation"
    ]
