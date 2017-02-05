@@ -1,3 +1,14 @@
+chrome.runtime.onMessage.addListener(function(request, sender){
+	var userTextArray = request.userTextArray;
+	var userTextString = "";
+	for (var i = 0; i < userTextArray.length; i++)
+	{
+		userTextString += userTextArray[i];
+	}
+	
+	message.innerText = userTextString;
+});
+
 
 //window.alert("Hello world!");
 /*
@@ -22,6 +33,7 @@ $(document).bind('click', function(e) {
   var $clicked = $(e.target);
   if (!$clicked.parents().hasClass("dropdown")) $(".dropdown dd ul").hide();
 });
+
 
 $('.mutliSelect input[type="checkbox"]').on('click', function() {
 
