@@ -4,23 +4,24 @@ import json
 from indicoio.custom import Collection
 
 #API Setup
-keyfile = open('assets/indico-api-key.txt')
+keyfile = open('static/indico-api-key.txt')
 indicoio.config.api_key = keyfile.read()
 keyfile.close()
 
 #Global variables
-badWordList = []
+badWordList = ['alcoholic', 'amateur', 'analphabet', 'anarchist', 'ape', 'arse', 'arselicker', 'ass', 'ass master', 'ass-kisser', 'ass-nugget', 'ass-wipe', 'asshole', 'baby', 'backwoodsman', 'balls', 'bandit', 'barbar', 'bastard', 'bastard', 'beavis', 'beginner', 'biest', 'bitch', 'blubber gut', 'bogeyman', 'booby', 'boozer', 'bozo', 'brain-fart', 'brainless', 'brainy', 'brontosaurus', 'brownie', 'bugger', 'bugger, silly', 'bulloks', 'bum', 'bum-fucker', 'butt', 'buttfucker', 'butthead', 'callboy', 'callgirl', 'camel', 'cannibal', 'cave man', 'chaavanist', 'chaot', 'chauvi', 'cheater', 'chicken', 'children fucker', 'clit', 'clown', 'cock', 'cock master', 'cock up', 'cockboy', 'cockfucker', 'cockroach', 'coky', 'con merchant', 'con-man', 'country bumpkin', 'cow', 'creep', 'creep', 'cretin', 'criminal', 'cunt', 'cunt sucker', 'daywalker', 'deathlord', 'derr brain', 'desperado', 'devil', 'dickhead', 'dinosaur', 'disguesting packet', 'diz brain', 'do-do', 'dog', 'dog, dirty', 'dogshit', 'donkey', 'drakula', 'dreamer', 'drinker', 'drunkard', 'dufus', 'dulles', 'dumbo', 'dummy', 'dumpy', 'egoist', 'eunuch', 'exhibitionist', 'fake', 'fanny', 'farmer', 'fart', 'fart, shitty', 'fatso', 'fellow', 'fibber', 'fish', 'fixer', 'flake', 'flash harry', 'freak', 'frog', 'fuck', 'fuck face', 'fuck head', 'fuck noggin', 'fucker', 'gangster', 'ghost', 'goose', 'gorilla', 'grouch', 'grumpy', 'head, fat', 'hell dog', 'hillbilly', 'hippie', 'homo', 'homosexual', 'hooligan', 'horse fucker', 'idiot', 'ignoramus', 'jack-ass', 'jerk', 'joker', 'junkey', 'killer', 'lard face', 'latchkey child', 'learner', 'liar', 'looser', 'lucky', 'lumpy', 'luzifer', 'macho', 'macker', 'man, old', 'minx', 'missing link', 'monkey', 'monster', 'motherfucker', 'mucky pub', 'mutant', 'neanderthal', 'nerfhearder', 'nobody', 'nurd', 'nuts, numb', 'oddball', 'oger', 'oil dick', 'old fart', 'orang-uthan', 'original', 'outlaw', 'pack', 'pain in the ass', 'pavian', 'pencil dick', 'pervert', 'pig', 'piggy-wiggy', 'pirate', 'pornofreak', 'prick', 'prolet', 'queer', 'querulant', 'rat', 'rat-fink', 'reject', 'retard', 'riff-raff', 'ripper', 'roboter', 'rowdy', 'rufian', 'sack', 'sadist', 'saprophyt', 'satan', 'scarab', 'schfincter', 'shark', 'shit eater', 'shithead', 'simulant', 'skunk', 'skuz bag', 'slave', 'sleeze', 'sleeze bag', 'slimer', 'slimy bastard', 'small pricked', 'snail', 'snake', 'snob', 'snot', 'son of a bitch', 'square', 'stinker', 'stripper', 'stunk', 'swindler', 'swine', 'teletubby', 'thief', 'toilett cleaner', 'tussi', 'typ', 'unlike', 'vampir', 'vandale', 'varmit', 'wallflower', 'wanker', 'wanker, bloody', 'weeze bag', 'whore', 'wierdo', 'wino', 'witch', 'womanizer', 'woody allen', 'worm', 'xena', 'xenophebe', 'xenophobe', 'xxx watcher', 'yak', 'yeti', 'zit face']
+
 hCollection = Collection("HarrassmentCollection")
 
 #Flask crap
-app = Flask(__name__)
+application = Flask(__name__)
 
-@app.route("/")
+@application.route("/")
 def hello():
     return redirect(url_for('analyze'))
 
 
-@app.route("/analyze", methods=['GET','POST'])
+@application.route("/analyze", methods=['GET','POST'])
 def analyze():
     if request.method == 'POST':
         if 'request-type' in request.form:
@@ -40,7 +41,7 @@ def analyze():
     else: 
         return render_template('analyze.html')
 
-@app.route("/train", methods=['GET','POST'])
+@application.route("/train", methods=['GET','POST'])
 def train():
     if request.method == 'POST':
         if 'harassing-comments' in request.form and 'non-harassing-comments' in request.form:
@@ -64,8 +65,8 @@ def containsBadWords( text ):
 def analyzeText( textToAnalyze ):
     resultDict = {}
     resultDict['sentiment'] = indicoio.sentiment(textToAnalyze)
-    resultDict['harassing-comment'] = hCollection.predict(textToAnalyze)
-    resultDict['contains-bad-words'] = containsBadWords(textToAnalyze)
+    resultDict['harassingComment'] = hCollection.predict(textToAnalyze)
+    resultDict['containsBadWords'] = containsBadWords(textToAnalyze)
     return json.dumps(resultDict)
 
 def trainComments( goodComments, badComments ):
@@ -84,6 +85,5 @@ def trainComments( goodComments, badComments ):
 #main
 
 if __name__ == "__main__":
-            badWordList =  [line.strip().lower() for line in open('assets/bad_words.txt')]
-            app.run('0.0.0.0')
+            application.run('0.0.0.0',port=80)
 
