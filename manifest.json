@@ -11,7 +11,7 @@
     },
 
   "browser_action": {
-    "default_icon": "images/icon.png",
+    "default_icon": "images/hhcube.png",
     "default_popup": "popup.html",
     "default_title": "Mod Buddy"
   },
@@ -24,7 +24,8 @@
   ],
   
   "permissions": [
-    "activeTab", //Need
+
+    "activeTab",
     "background",
     "bookmarks",
     "clipboardRead",
