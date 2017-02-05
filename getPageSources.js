@@ -4,6 +4,7 @@ function getUserText(document_root) {
 	var textArray = [];
 	for (var i = 0; i < pArray.length; i++)
 	{
+		pArray[i].setAttribute("id",i.toString());
 		textArray.push(pArray[i].innerHTML);
 	}
 	return textArray;	
