@@ -2,6 +2,8 @@
 
 ![ModBuddy Picture](https://github.com/jeremyroy/ModBuddy/blob/master/cube.png)
 
+ModBuddy is a reddit moderator tool that can detect and flag harassing and vulgar comments. It was inspired by the Hack Harassment challenge at QHacks 2017
+
 ModBuddy is composed of two parts- a RESTful API that performs analysis on text, and a chrome extension that submits comments from Reddit for analysis.
 
 ModBuddy uses indico.io APIs to run sentiment analysis and a custom anti-harassment text model. ModBuddy also includes detection for many common vulgar words.
@@ -15,6 +17,10 @@ The chrome extension makes POST requests to /analyze, and based on the response 
 - Navigate to and select the ModBuddy root directory
 
 [Here's an example of how harassing comment highlighting works](https://github.com/jeremyroy/ModBuddy/blob/python-flask-server/images/example_reddit.png)
+
+### Limitations and Future Work
+- Our MVP was to highlight comments, but we also wanted to have a 'moderator menu' that allows bulk navigation to, selection, and deletion of comments. However, we were unable to complete the deletion feature in time for the deadline.
+- A future item would include allowing custom rules. Right now, the chrome extension flags a comment if any of the returned data parameters (such as containsBadWords) is out of spec
 
 ## How to use the ModBuddy API
 
